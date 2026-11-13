@@ -212,7 +212,7 @@ PlasmaExtras.Representation {
                 spacing: Kirigami.Units.smallSpacing * 2
 
                 Kirigami.Icon {
-                    source: "search"
+                    source: Plasmoid.configuration.iconName.length > 0 ? Plasmoid.configuration.iconName : "search"
                     implicitWidth: Kirigami.Units.iconSizes.small
                     implicitHeight: implicitWidth
                 }

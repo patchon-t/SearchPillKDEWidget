@@ -3,11 +3,16 @@
  */
 import QtQuick
 import QtQuick.Controls as QQC2
+import QtQuick.Layouts
 import org.kde.kirigami as Kirigami
 import org.kde.kcmutils as KCM
+import org.kde.iconthemes as KIconThemes
 
 KCM.SimpleKCM {
+    id: root
     property alias cfg_pillWidth: pillWidthSpin.value
+    property alias cfg_pillHeight: pillHeightSpin.value
+    property string cfg_iconName
     property alias cfg_placeholderText: placeholderField.text
     property alias cfg_showIcon: showIconCheck.checked
     property alias cfg_popupWidth: popupWidthSpin.value
@@ -16,6 +21,8 @@ KCM.SimpleKCM {
     property alias cfg_popupGap: popupGapSpin.value
 
     // Declared so Plasma's config loader finds every key (avoids warnings).
+    property int cfg_pillHeightDefault
+    property string cfg_iconNameDefault
     property int cfg_pillWidthDefault
     property string cfg_placeholderTextDefault
     property bool cfg_showIconDefault
@@ -33,6 +40,16 @@ KCM.SimpleKCM {
             from: 4
             to: 60
         }
+        QQC2.SpinBox {
+            id: pillHeightSpin
+            Kirigami.FormData.label: i18n("Pill height (pixels):")
+            from: 0
+            to: 120
+            // 0 = follow the panel thickness.
+            textFromValue: (value, locale) => value === 0 ? i18n("Automatic") : Number(value).toLocaleString(locale, "f", 0)
+            valueFromText: (text, locale) => text === i18n("Automatic") ? 0 : Number.fromLocaleString(locale, text)
+            editable: true
+        }
         QQC2.TextField {
             id: placeholderField
             Kirigami.FormData.label: i18n("Placeholder text:")
@@ -41,7 +58,25 @@ KCM.SimpleKCM {
         QQC2.CheckBox {
             id: showIconCheck
             Kirigami.FormData.label: i18n("Icon:")
-            text: i18n("Show search icon in the pill")
+            text: i18n("Show icon in the pill")
+        }
+        RowLayout {
+            Kirigami.FormData.label: i18n("Icon:")
+            enabled: showIconCheck.checked
+            spacing: Kirigami.Units.smallSpacing
+
+            QQC2.Button {
+                id: iconButton
+                icon.name: root.cfg_iconName.length > 0 ? root.cfg_iconName : "search"
+                text: root.cfg_iconName.length > 0 ? root.cfg_iconName : "search"
+                onClicked: iconDialog.open()
+            }
+            QQC2.Button {
+                icon.name: "edit-undo"
+                text: i18n("Reset")
+                enabled: root.cfg_iconName !== "search"
+                onClicked: root.cfg_iconName = "search"
+            }
         }
 
         Item { Kirigami.FormData.isSection: true }
@@ -69,6 +104,15 @@ KCM.SimpleKCM {
             enabled: floatingCheck.checked
             from: 0
             to: 64
+        }
+    }
+
+    KIconThemes.IconDialog {
+        id: iconDialog
+        onIconNameChanged: iconName => {
+            if (iconName.length > 0) {
+                root.cfg_iconName = iconName;
+            }
         }
     }
 }

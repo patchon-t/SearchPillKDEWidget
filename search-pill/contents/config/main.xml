@@ -13,6 +13,16 @@
       <min>4</min>
       <max>60</max>
     </entry>
+    <entry name="pillHeight" type="Int">
+      <label>Height of the pill in pixels. 0 = automatic (fills the panel thickness minus small margins).</label>
+      <default>0</default>
+      <min>0</min>
+      <max>120</max>
+    </entry>
+    <entry name="iconName" type="String">
+      <label>Icon shown in the pill, the vertical-panel button and the popup search bar.</label>
+      <default>search</default>
+    </entry>
     <entry name="placeholderText" type="String">
       <label>Placeholder shown in the pill and the popup field. Empty = translated "Search".</label>
       <default></default>

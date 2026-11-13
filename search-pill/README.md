@@ -44,6 +44,8 @@ Clicking a result runs it. Clicking the arrow at the end of a row only selects i
 | Option | Default | Meaning |
 | --- | --- | --- |
 | Pill width | 12 grid units | Width of the pill on a horizontal panel |
+| Pill height | Automatic | Pixels, or Automatic to fill the panel thickness minus small margins. The icon and text scale with it |
+| Icon | `search` | Pick any icon from your icon theme; used in the pill, on vertical panels and in the popup search bar |
 | Placeholder text | *(empty)* | Text shown in the empty pill. If empty, the translated word "Search" is used |
 | Show search icon | on | Shows the magnifier icon inside the pill |
 | Popup width / height | 44 × 32 grid units | Size of the search popup. Below 32 units wide the preview card is hidden |

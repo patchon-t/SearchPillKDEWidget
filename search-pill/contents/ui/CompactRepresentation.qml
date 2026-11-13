@@ -15,9 +15,14 @@ Item {
 
     readonly property bool vertical: Plasmoid.formFactor === PlasmaCore.Types.Vertical
     readonly property real pillWidth: Plasmoid.configuration.pillWidth * Kirigami.Units.gridUnit
+    // 0 means automatic: use the whole panel thickness minus small margins.
+    readonly property real fixedPillHeight: Plasmoid.configuration.pillHeight
+    readonly property string iconName: Plasmoid.configuration.iconName.length > 0
+        ? Plasmoid.configuration.iconName : "search"
 
     implicitWidth: vertical ? Kirigami.Units.iconSizes.medium : pillWidth
-    implicitHeight: vertical ? Kirigami.Units.iconSizes.medium : Kirigami.Units.gridUnit * 2.2
+    implicitHeight: vertical ? Kirigami.Units.iconSizes.medium
+        : (fixedPillHeight > 0 ? fixedPillHeight + Kirigami.Units.smallSpacing * 2 : Kirigami.Units.gridUnit * 2.2)
 
     Layout.minimumWidth: vertical ? -1 : pillWidth
     Layout.preferredWidth: vertical ? -1 : pillWidth
@@ -58,7 +63,7 @@ Item {
     Kirigami.Icon {
         anchors.fill: parent
         visible: compact.vertical
-        source: "search"
+        source: compact.iconName
         active: mouseArea.containsMouse
     }
 
@@ -69,7 +74,9 @@ Item {
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left
         anchors.right: parent.right
-        height: Math.min(parent.height - Kirigami.Units.smallSpacing * 2, Kirigami.Units.gridUnit * 2.2)
+        height: compact.fixedPillHeight > 0
+            ? Math.min(compact.fixedPillHeight, parent.height)
+            : Math.max(Kirigami.Units.gridUnit, parent.height - Kirigami.Units.smallSpacing * 2)
         radius: height / 2
         color: Qt.rgba(c.r, c.g, c.b, mouseArea.containsMouse ? 0.14 : 0.08)
         border.width: 1
@@ -87,8 +94,8 @@ Item {
 
             Kirigami.Icon {
                 visible: Plasmoid.configuration.showIcon
-                source: "search"
-                Layout.preferredWidth: Math.min(Kirigami.Units.iconSizes.small, pill.height - 4)
+                source: compact.iconName
+                Layout.preferredWidth: Math.max(Kirigami.Units.iconSizes.small, Math.min(Kirigami.Units.iconSizes.medium, Math.round(pill.height * 0.5)))
                 Layout.preferredHeight: Layout.preferredWidth
                 Layout.alignment: Qt.AlignVCenter
             }
@@ -101,6 +108,7 @@ Item {
                 elide: Text.ElideRight
                 textFormat: Text.PlainText
                 maximumLineCount: 1
+                font.pointSize: Kirigami.Theme.defaultFont.pointSize * Math.max(1, Math.min(1.5, pill.height / (Kirigami.Units.gridUnit * 2.2)))
             }
         }
     }
