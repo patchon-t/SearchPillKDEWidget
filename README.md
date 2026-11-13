@@ -7,7 +7,7 @@ The pill as it sits on the panel:
 
 ![Search pill](screenshots/pill.png)
 
-The results popup:
+The search popup (results list and preview card):
 
 ![Results popup](screenshots/popup.png)
 

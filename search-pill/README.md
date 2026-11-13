@@ -1,6 +1,6 @@
 # Search Pill
 
-A Windows 11 style search box for the KDE Plasma 6 panel. It shows a rounded pill with a search icon and a "Search" placeholder. Clicking the pill, or pressing the widget's global shortcut, opens a popup with a text field and KRunner results (apps, files, settings, calculator and so on) from the same backend KRunner uses (`org.kde.milou`).
+A Windows 11 style search box for the KDE Plasma 6 panel. It shows a rounded pill with a search icon and a "Search" placeholder. Clicking the pill, or pressing the widget's global shortcut, opens a Windows 11 style search popup: a search bar, filter tabs (All, Apps, Files, Settings), a results list with a "Best match" on top, and a preview card with actions for the selected result. The results (apps, files, settings, calculator and so on) come from KRunner through `org.kde.milou`; the popup UI itself is custom.
 
 ## Requirements
 
@@ -31,9 +31,13 @@ Keys in the popup:
 | --- | --- |
 | Up / Down | Move the selection |
 | Enter | Run the selected result |
+| Shift+Enter | Run the first extra action of the selected result |
+| Tab / Shift+Tab | Switch filter tab |
 | Esc | Clear the query and close the popup |
 
 When the pill has keyboard focus (Tab to it), typing a letter opens the popup with that letter already in the field. Enter or Down opens the popup without typing anything.
+
+Clicking a result runs it. Clicking the arrow at the end of a row only selects it, so you can look at its preview and actions.
 
 ## Configuration (General page)
 
@@ -42,7 +46,7 @@ When the pill has keyboard focus (Tab to it), typing a letter opens the popup wi
 | Pill width | 12 grid units | Width of the pill on a horizontal panel |
 | Placeholder text | *(empty)* | Text shown in the empty pill. If empty, the translated word "Search" is used |
 | Show search icon | on | Shows the magnifier icon inside the pill |
-| Popup width / height | 28 × 30 grid units | Size of the results popup |
+| Popup width / height | 44 × 32 grid units | Size of the search popup. Below 32 units wide the preview card is hidden |
 
 ## Troubleshooting
 
