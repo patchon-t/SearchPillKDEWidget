@@ -17,6 +17,7 @@ Item {
     readonly property real pillWidth: Plasmoid.configuration.pillWidth * Kirigami.Units.gridUnit
     // 0 means automatic: use the whole panel thickness minus small margins.
     readonly property real fixedPillHeight: Plasmoid.configuration.pillHeight
+    readonly property real currentPillHeight: pill.height
     readonly property string iconName: Plasmoid.configuration.iconName.length > 0
         ? Plasmoid.configuration.iconName : "search"
 
@@ -57,6 +58,15 @@ Item {
         property bool wasExpanded: false
         onPressed: wasExpanded = compact.plasmoidRoot.expanded
         onClicked: compact.plasmoidRoot.expanded = !wasExpanded
+        // Ctrl+scroll over the pill resizes it; plain scroll is left to the panel.
+        onWheel: wheel => {
+            if (wheel.modifiers & Qt.ControlModifier && !compact.vertical) {
+                compact.plasmoidRoot.adjustPillHeight(wheel.angleDelta.y > 0 ? compact.plasmoidRoot.heightStep : -compact.plasmoidRoot.heightStep, pill.height);
+                wheel.accepted = true;
+            } else {
+                wheel.accepted = false;
+            }
+        }
     }
 
     // Vertical panel: just an icon.

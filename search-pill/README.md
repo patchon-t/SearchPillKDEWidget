@@ -51,6 +51,8 @@ Clicking a result runs it. Clicking the arrow at the end of a row only selects i
 | Popup width / height | 44 × 32 grid units | Size of the search popup. Below 32 units wide the preview card is hidden |
 | Float popup | on, 12 px gap | Detaches the popup from the panel and screen edges, like the Windows 11 search flyout |
 
+You can also resize the pill straight on the panel: right-click it and choose **Make Pill Taller**, **Make Pill Shorter** or **Reset Pill Height**, or hold Ctrl and scroll over it. Each step is 4 pixels, between 16 and 120.
+
 ## Troubleshooting
 
 Watch the plasmashell log for errors from the widget:
