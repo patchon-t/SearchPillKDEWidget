@@ -47,6 +47,7 @@ Clicking a result runs it. Clicking the arrow at the end of a row only selects i
 | Placeholder text | *(empty)* | Text shown in the empty pill. If empty, the translated word "Search" is used |
 | Show search icon | on | Shows the magnifier icon inside the pill |
 | Popup width / height | 44 × 32 grid units | Size of the search popup. Below 32 units wide the preview card is hidden |
+| Float popup | on, 12 px gap | Detaches the popup from the panel and screen edges, like the Windows 11 search flyout |
 
 ## Troubleshooting
 

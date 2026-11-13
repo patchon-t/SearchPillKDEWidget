@@ -4,6 +4,7 @@
 import QtQuick
 import QtQuick.Layouts
 import org.kde.plasma.plasmoid
+import org.kde.plasma.core as PlasmaCore
 import org.kde.plasma.components as PlasmaComponents3
 import org.kde.plasma.extras as PlasmaExtras
 import org.kde.kirigami as Kirigami
@@ -45,6 +46,31 @@ PlasmaExtras.Representation {
     Layout.maximumHeight: popupH
 
     collapseMarginsHint: false
+
+    // The popup window Plasma created for us (a PlasmaCore.AppletPopup).
+    readonly property var popupWindow: Window.window
+    readonly property bool floatingPopup: Plasmoid.configuration.floatingPopup
+    readonly property int popupGap: Plasmoid.configuration.popupGap
+
+    // Detach the popup from the panel and screen edges, Windows 11 style.
+    // Plasma only does this itself for floating panels, so set the popup's
+    // margin directly. Does nothing where there is no such popup window.
+    function applyFloating() {
+        const w = popupWindow;
+        if (!w || w.margin === undefined) {
+            return;
+        }
+        if (floatingPopup) {
+            w.margin = popupGap;
+        } else {
+            w.margin = (Plasmoid.containmentDisplayHints & PlasmaCore.Types.ContainmentPrefersFloatingApplets)
+                ? Kirigami.Units.largeSpacing : 0;
+        }
+    }
+
+    onPopupWindowChanged: applyFloating()
+    onFloatingPopupChanged: applyFloating()
+    onPopupGapChanged: applyFloating()
 
     function tint(a) {
         const c = Kirigami.Theme.textColor;
@@ -91,6 +117,7 @@ PlasmaExtras.Representation {
     Component.onCompleted: {
         plasmoidRoot.queryField = queryField;
         resultModel.queryString = plasmoidRoot.query;
+        applyFloating();
     }
 
     // A new filter only applies to the next query, so re-run the current one.
@@ -106,6 +133,7 @@ PlasmaExtras.Representation {
             resultModel.queryString = full.plasmoidRoot.query;
         }
         function onExpandedChanged() {
+            full.applyFloating();
             if (!full.plasmoidRoot.expanded) {
                 full.filterIndex = 0;
             }

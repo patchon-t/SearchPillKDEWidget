@@ -12,6 +12,8 @@ KCM.SimpleKCM {
     property alias cfg_showIcon: showIconCheck.checked
     property alias cfg_popupWidth: popupWidthSpin.value
     property alias cfg_popupHeight: popupHeightSpin.value
+    property alias cfg_floatingPopup: floatingCheck.checked
+    property alias cfg_popupGap: popupGapSpin.value
 
     // Declared so Plasma's config loader finds every key (avoids warnings).
     property int cfg_pillWidthDefault
@@ -19,6 +21,8 @@ KCM.SimpleKCM {
     property bool cfg_showIconDefault
     property int cfg_popupWidthDefault
     property int cfg_popupHeightDefault
+    property bool cfg_floatingPopupDefault
+    property int cfg_popupGapDefault
     property bool cfg_shortcutSuggested
     property bool cfg_shortcutSuggestedDefault
 
@@ -53,6 +57,18 @@ KCM.SimpleKCM {
             Kirigami.FormData.label: i18n("Popup height (grid units):")
             from: 10
             to: 80
+        }
+        QQC2.CheckBox {
+            id: floatingCheck
+            Kirigami.FormData.label: i18n("Popup position:")
+            text: i18n("Float away from the panel and screen edges")
+        }
+        QQC2.SpinBox {
+            id: popupGapSpin
+            Kirigami.FormData.label: i18n("Floating gap (pixels):")
+            enabled: floatingCheck.checked
+            from: 0
+            to: 64
         }
     }
 }

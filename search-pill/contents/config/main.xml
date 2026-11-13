@@ -33,6 +33,16 @@
       <min>10</min>
       <max>80</max>
     </entry>
+    <entry name="floatingPopup" type="Bool">
+      <label>Detach the popup from the panel and screen edges.</label>
+      <default>true</default>
+    </entry>
+    <entry name="popupGap" type="Int">
+      <label>Gap between the floating popup and the panel / screen edges, in pixels.</label>
+      <default>12</default>
+      <min>0</min>
+      <max>64</max>
+    </entry>
     <entry name="shortcutSuggested" type="Bool">
       <label>Internal: whether the default Meta+S shortcut was already offered once.</label>
       <default>false</default>
