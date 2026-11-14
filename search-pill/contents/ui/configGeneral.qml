@@ -28,6 +28,8 @@ KCM.SimpleKCM {
     property bool cfg_showIconDefault
     property int cfg_popupWidthDefault
     property int cfg_popupHeightDefault
+    property alias cfg_inlineSearch: inlineCheck.checked
+    property bool cfg_inlineSearchDefault
     property bool cfg_floatingPopupDefault
     property int cfg_popupGapDefault
     property bool cfg_shortcutSuggested
@@ -92,6 +94,11 @@ KCM.SimpleKCM {
             Kirigami.FormData.label: i18n("Popup height (grid units):")
             from: 10
             to: 80
+        }
+        QQC2.CheckBox {
+            id: inlineCheck
+            Kirigami.FormData.label: i18n("Typing:")
+            text: i18n("Type in the pill (no search bar in the popup)")
         }
         QQC2.CheckBox {
             id: floatingCheck

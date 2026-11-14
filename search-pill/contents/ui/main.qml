@@ -17,6 +17,11 @@ PlasmoidItem {
     // Set by FullRepresentation so we can focus its field on expand.
     property Item queryField: null
 
+    // Caret and selection of the popup's field, mirrored in the pill.
+    property int cursorPos: 0
+    property int selStart: 0
+    property int selEnd: 0
+
     preferredRepresentation: compactRepresentation
 
     // Pill height adjustment from the panel (right-click menu, Ctrl+scroll).
@@ -77,6 +82,9 @@ PlasmoidItem {
             });
         } else {
             query = "";
+            cursorPos = 0;
+            selStart = 0;
+            selEnd = 0;
         }
     }
 

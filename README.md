@@ -7,6 +7,10 @@ The pill as it sits on the panel:
 
 ![Search pill](screenshots/pill.png)
 
+On hover the pill turns white and the magnifier fades to the blue-to-green gradient:
+
+![Search pill on hover](screenshots/pill-hover.png)
+
 The search popup (results list and preview card):
 
 ![Results popup](screenshots/popup.png)

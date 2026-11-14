@@ -49,6 +49,7 @@ Clicking a result runs it. Clicking the arrow at the end of a row only selects i
 | Placeholder text | *(empty)* | Text shown in the empty pill. If empty, the translated word "Search" is used |
 | Show search icon | on | Shows the magnifier icon inside the pill |
 | Popup width / height | 44 × 32 grid units | Size of the search popup. Below 32 units wide the preview card is hidden |
+| Type in the pill | on | The pill is the search box: it lights up on hover, shows what you type with a caret and selection, and the popup has only the results. Turn off to get a search bar inside the popup instead |
 | Float popup | on, 12 px gap | Detaches the popup from the panel and screen edges, like the Windows 11 search flyout |
 
 You can also resize the pill straight on the panel: right-click it and choose **Make Pill Taller**, **Make Pill Shorter** or **Reset Pill Height**, or hold Ctrl and scroll over it. Each step is 4 pixels, between 16 and 120.

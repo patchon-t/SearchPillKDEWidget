@@ -182,7 +182,12 @@ PlasmaExtras.Representation {
         Rectangle {
             id: searchBar
             Layout.fillWidth: true
-            implicitHeight: Math.round(Kirigami.Units.gridUnit * 2.2)
+            // In inline mode the pill is the visible search box; this bar stays
+            // (zero height, transparent) only so it can keep keyboard focus.
+            readonly property bool inline: Plasmoid.configuration.inlineSearch
+            implicitHeight: inline ? 0 : Math.round(Kirigami.Units.gridUnit * 2.2)
+            opacity: inline ? 0 : 1
+            clip: inline
             radius: Kirigami.Units.cornerRadius
             color: full.tint(0.06)
             border.width: 1
@@ -238,6 +243,10 @@ PlasmaExtras.Representation {
                             full.plasmoidRoot.query = text;
                         }
                     }
+                    // Mirror caret and selection into the pill.
+                    onCursorPositionChanged: full.plasmoidRoot.cursorPos = cursorPosition
+                    onSelectionStartChanged: full.plasmoidRoot.selStart = selectionStart
+                    onSelectionEndChanged: full.plasmoidRoot.selEnd = selectionEnd
 
                     PlasmaComponents3.Label {
                         anchors.fill: parent
